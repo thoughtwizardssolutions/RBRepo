@@ -14,7 +14,7 @@ spring:
     application:
         name: accountsrb
     datasource:
-        url: jdbc:h2:mem:accountsrb;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:accountsrb
         name:
         username:
         password:
@@ -24,7 +24,7 @@ spring:
         open-in-view: false
         show_sql: true
         hibernate:
-            ddl-auto: none
+            ddl-auto: create-drop
             naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: false

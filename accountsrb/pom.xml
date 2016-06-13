@@ -32,9 +32,6 @@
         <jacoco-maven-plugin.version>0.7.6.201602180812</jacoco-maven-plugin.version>
         <java.version>1.8</java.version>
         <javax.inject.version>1</javax.inject.version>
-        <liquibase-hibernate4.version>3.5</liquibase-hibernate4.version>
-        <liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
-        <liquibase.version>3.4.2</liquibase.version>
         <logstash-logback-encoder.version>4.6</logstash-logback-encoder.version>
         <mapstruct.version>1.0.0.Final</mapstruct.version>
         <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
@@ -88,7 +85,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.jayway.awaitility</groupId>
@@ -101,11 +97,6 @@
             <artifactId>json-path</artifactId>
             <scope>test</scope>
             <!-- parent POM declares this dependency in default (compile) scope -->
-        </dependency>
-        <dependency>
-            <groupId>com.mattbertolini</groupId>
-            <artifactId>liquibase-slf4j</artifactId>
-            <version>${liquibase-slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ryantenney.metrics</groupId>
@@ -136,6 +127,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>4.3.7.Final</version>
+		</dependency>
         <!-- The HikariCP Java Agent is disabled by default, as it is experimental
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -262,16 +258,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jetty-servlet</artifactId>
-                    <groupId>org.eclipse.jetty</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -609,40 +595,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.javassist</groupId>
-                        <artifactId>javassist</artifactId>
-                        <version>3.18.2-GA</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.liquibase.ext</groupId>
-                        <artifactId>liquibase-hibernate4</artifactId>
-                        <version>${liquibase-hibernate4.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-data-jpa</artifactId>
-                        <version>${project.parent.version}</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
-                    <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
-                    <driver>com.mysql.jdbc.Driver</driver>
-                    <url>jdbc:mysql://rbdbdev.c73evv6a4lq0.us-west-2.rds.amazonaws.com:3306/rbdbdev</url>
-                    <defaultSchemaName>rbdbdev</defaultSchemaName>
-                    <username>root</username>
-                    <password />
-                    <referenceUrl>hibernate:spring:com.rb.accounts.domain?dialect=org.hibernate.dialect.MySQL5InnoDBDialect&amp;hibernate.ejb.naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy</referenceUrl>
-                    <verbose>true</verbose>
-                    <logging>debug</logging>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -820,6 +772,7 @@
                 <dependency>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <scope>provided</scope>
                 </dependency>
             </dependencies>
         </profile>
