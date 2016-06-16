@@ -20,9 +20,21 @@
         <dd>
             <span>{{vm.invoiceItem.amount}}</span>
         </dd>
+        <dt><span>Tax Type</span></dt>
+        <dd>
+            <span>{{vm.invoiceItem.taxType}}</span>
+        </dd>
+        <dt><span>Tax Rate</span></dt>
+        <dd>
+            <span>{{vm.invoiceItem.taxRate}}</span>
+        </dd>
         <dt><span>Product</span></dt>
         <dd>
             <a ui-sref="product-detail({id:vm.invoiceItem.product.id})">{{vm.invoiceItem.product.id}}</a>
+        </dd>
+        <dt><span>Invoice</span></dt>
+        <dd>
+            <a ui-sref="invoice-detail({id:vm.invoiceItem.invoice.id})">{{vm.invoiceItem.invoice.invoiceNumber}}</a>
         </dd>
     </dl>
 

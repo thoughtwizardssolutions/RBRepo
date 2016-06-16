@@ -1,0 +1,67 @@
+1. Create Dealer :
+
+POST: /api/dealers
+
+{
+  "address": {
+    "address1": "B 33, Sector 8",
+    "address2": "near savoy hotel",
+    "city": "Karnal",
+    "country": "India",
+    "email": "abc@sddv.com",
+    "phone": "985212336",
+    "pincode": 132001,
+    "state": "Haryana"
+  },
+  "creationDate": "2016-06-15",
+  "currentBalance": 0,
+  "firmName": "ABC Enterprises",
+  "modificationDate": "",
+  "openingBalance": 0,
+  "ownerName": "Ishan",
+  "termsAndConditions": "Terms and Conditions",
+  "tin": "TIN00015445"
+}
+
+2. Create Invoice :
+
+
+{
+  "adjustments": 0,
+  "creationDate": "2016-06-16",
+  "invoiceItems": [
+    {
+      "amount": 52000,
+      "discount": 0,
+      "imeis": [
+        {
+          "imei1": "656556562",
+          "imei2": "546468855"
+        },
+        {
+          "imei1": "546468855",
+          "imei2": "546468855"
+        }
+      ],
+      "mrp": 5200,
+      "product": {
+        "color": "Red",
+        "creationDate": "2016-06-16",
+        "description": "Mobile phone",
+        "mrp": 5200,
+        "productName": "Power -200"
+      },
+      "quantity":10,
+      "taxRate": 2,
+      "taxType": "CST"
+    }
+  ],
+  "invoiceNumber": "INV0003",
+  "modficationDate": "2016-06-16",
+  "orderNumber": "O0003232",
+  "salesPersonName": "Amit Kumar",
+  "shippingCharges": 50,
+  "subtotal": 0,
+  "taxes": 0,
+  "totalAmount": 52050
+}

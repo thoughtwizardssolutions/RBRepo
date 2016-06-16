@@ -1,13 +1,14 @@
 package com.rb.accounts.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Objects;
 
@@ -58,9 +59,8 @@ public class Invoice implements Serializable {
     @Column(name = "total_amount", precision=10, scale=2, nullable = false)
     private BigDecimal totalAmount;
 
-    @OneToMany(mappedBy = "id")
-    @JsonIgnore
-    private Set<InvoiceItem> invoiceItems = new HashSet<>();
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "invoice")
+    private List<InvoiceItem> invoiceItems = new ArrayList();
 
     public Long getId() {
         return id;
@@ -150,12 +150,12 @@ public class Invoice implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Set<InvoiceItem> getInvoiceItems() {
+    public List<InvoiceItem> getInvoiceItems() {
         return invoiceItems;
     }
 
-    public void setInvoiceItems(Set<InvoiceItem> invoiceItems) {
-        this.invoiceItems = invoiceItems;
+    public void setInvoiceItems(List<InvoiceItem> saveInvoiceItems) {
+        this.invoiceItems = saveInvoiceItems;
     }
 
     @Override

@@ -67,7 +67,7 @@ class InvoiceItemGatlingTest extends Simulation {
             .exec(http("Create new invoiceItem")
             .post("/api/invoice-items")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "quantity":"0", "mrp":null, "discount":null, "amount":null}""")).asJSON
+            .body(StringBody("""{"id":null, "quantity":"0", "mrp":null, "discount":null, "amount":null, "taxType":"SAMPLE_TEXT", "taxRate":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_invoiceItem_url"))).exitHereIfFailed
             .pause(10)

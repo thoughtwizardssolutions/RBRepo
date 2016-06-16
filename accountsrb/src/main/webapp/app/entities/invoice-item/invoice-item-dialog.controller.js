@@ -5,15 +5,14 @@
         .module('accountsrbApp')
         .controller('InvoiceItemDialogController', InvoiceItemDialogController);
 
-    InvoiceItemDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'InvoiceItem', 'Imei', 'Product', 'Tax'];
+    InvoiceItemDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'InvoiceItem', 'Product', 'Imei', 'Invoice'];
 
-    function InvoiceItemDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, InvoiceItem, Imei, Product, Tax) {
+    function InvoiceItemDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, InvoiceItem, Product, Imei, Invoice) {
         var vm = this;
 
         vm.invoiceItem = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.imeis = Imei.query();
         vm.products = Product.query({filter: 'invoiceitem-is-null'});
         $q.all([vm.invoiceItem.$promise, vm.products.$promise]).then(function() {
             if (!vm.invoiceItem.product || !vm.invoiceItem.product.id) {
@@ -23,7 +22,8 @@
         }).then(function(product) {
             vm.products.push(product);
         });
-        vm.taxes = Tax.query();
+        vm.imeis = Imei.query();
+        vm.invoices = Invoice.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

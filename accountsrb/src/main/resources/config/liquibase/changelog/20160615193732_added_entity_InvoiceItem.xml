@@ -36,9 +36,21 @@
             <column name="amount" type="decimal(10,2)">
                 <constraints nullable="false" />
             </column>
+            
+            <column name="tax_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="tax_rate" type="double">
+                <constraints nullable="true" />
+            </column>
                         <column name="product_id" type="bigint">
                 <constraints unique="true" nullable="true" />
             </column>
+            <column name="invoice_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         

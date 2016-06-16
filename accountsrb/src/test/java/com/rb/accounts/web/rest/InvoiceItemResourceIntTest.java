@@ -54,6 +54,11 @@ public class InvoiceItemResourceIntTest {
 
     private static final BigDecimal DEFAULT_AMOUNT = new BigDecimal(1);
     private static final BigDecimal UPDATED_AMOUNT = new BigDecimal(2);
+    private static final String DEFAULT_TAX_TYPE = "AAAAA";
+    private static final String UPDATED_TAX_TYPE = "BBBBB";
+
+    private static final Double DEFAULT_TAX_RATE = 1D;
+    private static final Double UPDATED_TAX_RATE = 2D;
 
     @Inject
     private InvoiceItemRepository invoiceItemRepository;
@@ -85,6 +90,8 @@ public class InvoiceItemResourceIntTest {
         invoiceItem.setMrp(DEFAULT_MRP);
         invoiceItem.setDiscount(DEFAULT_DISCOUNT);
         invoiceItem.setAmount(DEFAULT_AMOUNT);
+        invoiceItem.setTaxType(DEFAULT_TAX_TYPE);
+        invoiceItem.setTaxRate(DEFAULT_TAX_RATE);
     }
 
     @Test
@@ -107,6 +114,8 @@ public class InvoiceItemResourceIntTest {
         assertThat(testInvoiceItem.getMrp()).isEqualTo(DEFAULT_MRP);
         assertThat(testInvoiceItem.getDiscount()).isEqualTo(DEFAULT_DISCOUNT);
         assertThat(testInvoiceItem.getAmount()).isEqualTo(DEFAULT_AMOUNT);
+        assertThat(testInvoiceItem.getTaxType()).isEqualTo(DEFAULT_TAX_TYPE);
+        assertThat(testInvoiceItem.getTaxRate()).isEqualTo(DEFAULT_TAX_RATE);
     }
 
     @Test
@@ -177,7 +186,9 @@ public class InvoiceItemResourceIntTest {
                 .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
                 .andExpect(jsonPath("$.[*].mrp").value(hasItem(DEFAULT_MRP.intValue())))
                 .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())))
-                .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())));
+                .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
+                .andExpect(jsonPath("$.[*].taxType").value(hasItem(DEFAULT_TAX_TYPE.toString())))
+                .andExpect(jsonPath("$.[*].taxRate").value(hasItem(DEFAULT_TAX_RATE.doubleValue())));
     }
 
     @Test
@@ -194,7 +205,9 @@ public class InvoiceItemResourceIntTest {
             .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
             .andExpect(jsonPath("$.mrp").value(DEFAULT_MRP.intValue()))
             .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()))
-            .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()));
+            .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
+            .andExpect(jsonPath("$.taxType").value(DEFAULT_TAX_TYPE.toString()))
+            .andExpect(jsonPath("$.taxRate").value(DEFAULT_TAX_RATE.doubleValue()));
     }
 
     @Test
@@ -219,6 +232,8 @@ public class InvoiceItemResourceIntTest {
         updatedInvoiceItem.setMrp(UPDATED_MRP);
         updatedInvoiceItem.setDiscount(UPDATED_DISCOUNT);
         updatedInvoiceItem.setAmount(UPDATED_AMOUNT);
+        updatedInvoiceItem.setTaxType(UPDATED_TAX_TYPE);
+        updatedInvoiceItem.setTaxRate(UPDATED_TAX_RATE);
 
         restInvoiceItemMockMvc.perform(put("/api/invoice-items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -233,6 +248,8 @@ public class InvoiceItemResourceIntTest {
         assertThat(testInvoiceItem.getMrp()).isEqualTo(UPDATED_MRP);
         assertThat(testInvoiceItem.getDiscount()).isEqualTo(UPDATED_DISCOUNT);
         assertThat(testInvoiceItem.getAmount()).isEqualTo(UPDATED_AMOUNT);
+        assertThat(testInvoiceItem.getTaxType()).isEqualTo(UPDATED_TAX_TYPE);
+        assertThat(testInvoiceItem.getTaxRate()).isEqualTo(UPDATED_TAX_RATE);
     }
 
     @Test

@@ -66,6 +66,8 @@
                                 mrp: null,
                                 discount: null,
                                 amount: null,
+                                taxType: null,
+                                taxRate: null,
                                 id: null
                             };
                         }

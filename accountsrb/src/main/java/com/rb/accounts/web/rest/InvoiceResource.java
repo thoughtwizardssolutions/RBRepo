@@ -2,7 +2,10 @@ package com.rb.accounts.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.rb.accounts.domain.Invoice;
+import com.rb.accounts.domain.InvoiceItem;
+import com.rb.accounts.repository.InvoiceItemRepository;
 import com.rb.accounts.repository.InvoiceRepository;
+import com.rb.accounts.repository.ProductRepository;
 import com.rb.accounts.web.rest.util.HeaderUtil;
 import com.rb.accounts.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -34,6 +37,12 @@ public class InvoiceResource {
     @Inject
     private InvoiceRepository invoiceRepository;
     
+    @Inject
+    private InvoiceItemRepository invoiceItemRepository;
+    
+    @Inject
+    private ProductRepository productRepository;
+    
     /**
      * POST  /invoices : Create a new invoice.
      *
@@ -50,6 +59,8 @@ public class InvoiceResource {
         if (invoice.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("invoice", "idexists", "A new invoice cannot already have an ID")).body(null);
         }
+       /* List<InvoiceItem> saveInvoiceItems = invoiceItemRepository.save(invoice.getInvoiceItems());
+        invoice.setInvoiceItems(saveInvoiceItems);*/
         Invoice result = invoiceRepository.save(invoice);
         return ResponseEntity.created(new URI("/api/invoices/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("invoice", result.getId().toString()))

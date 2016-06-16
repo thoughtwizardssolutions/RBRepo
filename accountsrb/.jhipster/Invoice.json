@@ -1,7 +1,7 @@
 {
     "relationships": [
         {
-            "relationshipName": "InvoiceItem",
+            "relationshipName": "invoiceItem",
             "otherEntityName": "invoiceItem",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "invoice"

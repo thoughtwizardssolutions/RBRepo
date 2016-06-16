@@ -1,7 +1,5 @@
 package com.rb.accounts.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -38,17 +36,21 @@ public class InvoiceItem implements Serializable {
     @Column(name = "amount", precision=10, scale=2, nullable = false)
     private BigDecimal amount;
 
-    @OneToMany(mappedBy = "id")
-    @JsonIgnore
-    private Set<Imei> imeis = new HashSet<>();
+    @Column(name = "tax_type")
+    private String taxType;
 
-    @OneToOne
+    @Column(name = "tax_rate")
+    private Double taxRate;
+
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(unique = true)
     private Product product;
 
-    @OneToMany(mappedBy = "id")
-    @JsonIgnore
-    private Set<Tax> taxes = new HashSet<>();
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "invoiceItem")
+    private Set<Imei> imeis = new HashSet<>();
+
+    @ManyToOne
+    private Invoice invoice;
 
     public Long getId() {
         return id;
@@ -90,12 +92,20 @@ public class InvoiceItem implements Serializable {
         this.amount = amount;
     }
 
-    public Set<Imei> getImeis() {
-        return imeis;
+    public String getTaxType() {
+        return taxType;
     }
 
-    public void setImeis(Set<Imei> imeis) {
-        this.imeis = imeis;
+    public void setTaxType(String taxType) {
+        this.taxType = taxType;
+    }
+
+    public Double getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(Double taxRate) {
+        this.taxRate = taxRate;
     }
 
     public Product getProduct() {
@@ -106,12 +116,20 @@ public class InvoiceItem implements Serializable {
         this.product = product;
     }
 
-    public Set<Tax> getTaxes() {
-        return taxes;
+    public Set<Imei> getImeis() {
+        return imeis;
     }
 
-    public void setTaxes(Set<Tax> taxes) {
-        this.taxes = taxes;
+    public void setImeis(Set<Imei> imeis) {
+        this.imeis = imeis;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     @Override
@@ -142,6 +160,8 @@ public class InvoiceItem implements Serializable {
             ", mrp='" + mrp + "'" +
             ", discount='" + discount + "'" +
             ", amount='" + amount + "'" +
+            ", taxType='" + taxType + "'" +
+            ", taxRate='" + taxRate + "'" +
             '}';
     }
 }

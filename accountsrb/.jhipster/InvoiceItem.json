@@ -1,12 +1,6 @@
 {
     "relationships": [
         {
-            "relationshipName": "imei",
-            "otherEntityName": "imei",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "invoiceItem"
-        },
-        {
             "relationshipName": "product",
             "otherEntityName": "product",
             "relationshipType": "one-to-one",
@@ -15,10 +9,16 @@
             "otherEntityRelationshipName": "invoiceItem"
         },
         {
-            "relationshipName": "tax",
-            "otherEntityName": "tax",
+            "relationshipName": "imei",
+            "otherEntityName": "imei",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "id"
+            "otherEntityRelationshipName": "invoiceItem"
+        },
+        {
+            "relationshipName": "invoice",
+            "otherEntityName": "invoice",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "invoiceNumber"
         }
     ],
     "fields": [
@@ -46,6 +46,14 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "taxType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "taxRate",
+            "fieldType": "Double"
         }
     ],
     "changelogDate": "20160615193732",

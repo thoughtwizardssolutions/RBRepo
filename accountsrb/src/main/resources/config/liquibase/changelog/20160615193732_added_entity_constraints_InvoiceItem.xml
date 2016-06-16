@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="product"/>
 
+        <addForeignKeyConstraint baseColumnNames="invoice_id"
+                                 baseTableName="invoice_item"
+                                 constraintName="fk_invoiceitem_invoice_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="invoice"/>
+
     </changeSet>
 </databaseChangeLog>

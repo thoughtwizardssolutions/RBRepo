@@ -27,6 +27,9 @@ public class Imei implements Serializable {
     @Column(name = "imei_2", nullable = false)
     private String imei2;
 
+    @OneToOne(cascade = {CascadeType.ALL})
+    private InvoiceItem invoiceItem;
+    
     public Long getId() {
         return id;
     }
@@ -49,6 +52,14 @@ public class Imei implements Serializable {
 
     public void setImei2(String imei2) {
         this.imei2 = imei2;
+    }
+
+    public InvoiceItem getInvoiceItem() {
+      return invoiceItem;
+    }
+
+    public void setInvoiceItem(InvoiceItem invoiceItem) {
+      this.invoiceItem = invoiceItem;
     }
 
     @Override
