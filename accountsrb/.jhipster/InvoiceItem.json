@@ -1,0 +1,56 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "imei",
+            "otherEntityName": "imei",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "invoiceItem"
+        },
+        {
+            "relationshipName": "product",
+            "otherEntityName": "product",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "invoiceItem"
+        },
+        {
+            "relationshipName": "tax",
+            "otherEntityName": "tax",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "quantity",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "mrp",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "discount",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "amount",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160615193732",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "invoice_item",
+    "pagination": "no"
+}

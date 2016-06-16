@@ -1,0 +1,105 @@
+
+entity Address {
+	id Long,
+	phone String required,
+    city String required,
+    state String required,
+    country String required,
+    pincode String required,
+    address1 String required,
+    address2 String,
+    email String
+}
+
+
+entity Dealer {
+	id Long,
+    creationDate LocalDate required,
+    modificationDate LocalDate,
+	firmName String required,
+    ownerName String,
+    tin String required,
+    termsAndCondtions String,
+    openingBalance BigDecimal,
+    currentBalance BigDecimal
+}
+
+relationship OneToOne {
+Dealer to Address
+}
+
+entity Product {
+	id Long,
+    creationDate LocalDate required,
+    modificationDate LocalDate,
+	productName String required,
+    mrp String required,
+    description String ,
+    color String
+}
+
+entity Tax {
+	id Long,
+    creationDate LocalDate required,
+    modificationDate LocalDate,
+	name String required,
+    rate Double required
+} 
+
+entity Invoice {
+	id Long,
+    creationDate LocalDate required,
+    modificationDate LocalDate,
+	invoiceNumber String required,
+    orderNumber String,
+    salesPersonName String,
+    subTotal BigDecimal,
+    taxes BigDecimal,
+    shippingCharges BigDecimal,
+    adjustments BigDecimal,
+    totalAmount BigDecimal required
+}
+
+relationship OneToMany {
+Invoice to InvoiceItem
+}
+
+entity InvoiceItem {
+id Long,
+quantity Integer required,
+mrp BigDecimal required,
+discount Integer,
+amount BigDecimal required
+
+}
+
+relationship OneToOne {
+Product  to InvoiceItem
+}
+
+relationship ManyToOne {
+Tax to InvoiceItem
+}
+
+relationship OneToMany {
+InvoiceItem to Imei
+}
+
+entity Imei {
+id Long,
+imei1 String required,
+imei2 String required
+}
+
+entity DealerTransaction {
+id Long,
+paymentDate LocalDate,
+paymentAmount BigDecimal,
+paymentType String
+}
+
+
+
+
+	
+	

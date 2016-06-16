@@ -1,0 +1,99 @@
+
+entity Address (rb_address) {
+	id Long,
+	phone String required,
+    city String required,
+    state String required,
+    country String required,
+    pincode String required,
+    address1 String required,
+    address2 String,
+    email String
+}
+
+
+entity Dealer (rb_dealer) {
+	id Long,
+    creationDate LocalDate required,
+    modificationDate LocalDate,
+	firmName String required,
+    ownerName String,
+    tin String required,
+    termsAndCondtions String,
+    openingBalance BigDecimal,
+    currentBalance BigDecimal
+}
+
+relationship OneToOne {
+Dealer to Address
+}
+
+entity Product (b_product) {
+	id Long,
+    creationDate LocalDate required,
+    modificationDate LocalDate,
+	productName String required,
+    mrp String required,
+    description String ,
+    color String
+}
+
+entity Tax (rb_tax) {
+	id Long,
+    creationDate LocalDate required,
+    modificationDate LocalDate,
+	name String required,
+    rate Double required
+} 
+
+entity Invoice (rb_invoices) {
+	id Long,
+    creationDate LocalDate required,
+    modificationDate LocalDate,
+	invoiceNumber String required,
+    orderNumber String,
+    salesPersonName String,
+    subTotal BigDecimal required,
+    taxes BigDecimal,
+    shippingCharges BigDecimal,
+    adjustments BigDecimal,
+    totalAmount BigDecimal required
+}
+
+relationship OneToMany {
+Invoice to InvoiceItem
+}
+
+entity InvoiceItem (rb_invoice_item){
+id Long,
+quantity Integer required,
+mrp BigDecimal required,
+discount Integer,
+amount BigDecimal required
+
+}
+
+relationship OneToOne {
+Product  to InvoiceItem
+}
+
+relationship ManyToOne {
+Tax to InvoiceItem
+}
+
+relationship OneToMany {
+InvoiceItem to Imei
+}
+
+entity Imei (rb_imei) {
+id Long,
+imei1 String required,
+imei2 String required
+}
+
+
+
+
+
+	
+	

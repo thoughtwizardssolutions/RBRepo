@@ -16,7 +16,7 @@ spring:
         restart:
             enabled: false
         livereload:
-            enabled: false
+            enabled: true
     datasource:
         url: jdbc:mysql://rbdbdev.c73evv6a4lq0.us-west-2.rds.amazonaws.com:3306/rbdbdev?useUnicode=true&characterEncoding=utf8&useSSL=false
         name: rbdbdev

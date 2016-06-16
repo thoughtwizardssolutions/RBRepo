@@ -1,0 +1,60 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "address",
+            "otherEntityName": "address",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "address1",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "dealer"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "creationDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "modificationDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "firmName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "ownerName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tin",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "termsAndConditions",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "openingBalance",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "currentBalance",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "changelogDate": "20160615192418",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "dealer",
+    "pagination": "pager"
+}
