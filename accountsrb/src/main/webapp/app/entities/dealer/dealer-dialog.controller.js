@@ -5,9 +5,9 @@
         .module('accountsrbApp')
         .controller('DealerDialogController', DealerDialogController);
 
-    DealerDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Dealer', 'Address'];
+    DealerDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Dealer'];
 
-    function DealerDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Dealer, Address) {
+    function DealerDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Dealer) {
         var vm = this;
 
         vm.dealer = entity;
@@ -15,18 +15,9 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.addresss = Address.query({filter: 'dealer-is-null'});
-        $q.all([vm.dealer.$promise, vm.addresss.$promise]).then(function() {
-            if (!vm.dealer.address || !vm.dealer.address.id) {
-                return $q.reject();
-            }
-            return Address.get({id : vm.dealer.address.id}).$promise;
-        }).then(function(address) {
-            vm.addresses.push(address);
-        });
 
         $timeout(function (){
-            angular.element('.form-group:eq(1)>input').focus();
+            angular.element('.form-group:eq(0)>input').focus();
         });
 
         function clear () {

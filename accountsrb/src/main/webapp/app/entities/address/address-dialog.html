@@ -15,16 +15,12 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="field_phone">Phone</label>
-            <input type="text" class="form-control" name="phone" id="field_phone"
-                    ng-model="vm.address.phone"
-                    required ng-maxlength="16" />
+            <input type="text" class="form-control" name="phone" id="field_phone" ng-model="vm.address.phone" required ng-maxlength="16" />
             <div ng-show="editForm.phone.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.phone.$error.required">
+                <p class="help-block" ng-show="editForm.phone.$error.required">
                     This field is required.
                 </p>
-                <p class="help-block"
-                    ng-show="editForm.phone.$error.maxlength">
+                <p class="help-block" ng-show="editForm.phone.$error.maxlength">
                     This field cannot be longer than 16 characters.
                 </p>
             </div>

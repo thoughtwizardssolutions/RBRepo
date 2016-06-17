@@ -65,10 +65,6 @@ public class UserResource {
     private UserRepository userRepository;
 
     @Inject
-    private MailService mailService;
-
-
-    @Inject
     private AuthorityRepository authorityRepository;
 
     @Inject
@@ -106,13 +102,13 @@ public class UserResource {
                 .body(null);
         } else {
             User newUser = userService.createUser(managedUserDTO);
-            String baseUrl = request.getScheme() + // "http"
+            /*String baseUrl = request.getScheme() + // "http"
             "://" +                                // "://"
             request.getServerName() +              // "myhost"
             ":" +                                  // ":"
             request.getServerPort() +              // "80"
             request.getContextPath();              // "/myContextPath" or "" if deployed in root context
-            mailService.sendCreationEmail(newUser, baseUrl);
+            mailService.sendCreationEmail(newUser, baseUrl);*/
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
                 .headers(HeaderUtil.createAlert( "A user is created with identifier " + newUser.getLogin(), newUser.getLogin()))
                 .body(newUser);

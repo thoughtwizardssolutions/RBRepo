@@ -1,17 +1,9 @@
 
 <div>
-    <h2><span>Dealer</span> {{vm.dealer.id}}</h2>
+    <h2>{{vm.dealer.firmName}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span>Creation Date</span></dt>
-        <dd>
-            <span>{{vm.dealer.creationDate | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span>Modification Date</span></dt>
-        <dd>
-            <span>{{vm.dealer.modificationDate | date:'mediumDate'}}</span>
-        </dd>
         <dt><span>Firm Name</span></dt>
         <dd>
             <span>{{vm.dealer.firmName}}</span>
@@ -36,9 +28,13 @@
         <dd>
             <span>{{vm.dealer.currentBalance}}</span>
         </dd>
-        <dt><span>Address</span></dt>
+        <dt><span>Contact Details</span></dt>
         <dd>
-            <a ui-sref="address-detail({id:vm.dealer.address.id})">{{vm.dealer.address.address1}}</a>
+            {{vm.dealer.address.address1}}<br>
+            {{vm.dealer.address.address2}}<br>
+            {{vm.dealer.address.city}} Pin: {{vm.dealer.address.pincode}}<br>
+            {{vm.dealer.address.state}} {{vm.dealer.address.country}}<br>
+            {{vm.dealer.address.email}}
         </dd>
     </dl>
 

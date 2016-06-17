@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/dealer?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN'],
                 pageTitle: 'Dealers'
             },
             views: {
@@ -50,7 +50,7 @@
             parent: 'entity',
             url: '/dealer/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN'],
                 pageTitle: 'Dealer'
             },
             views: {
@@ -70,7 +70,7 @@
             parent: 'dealer',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -105,7 +105,7 @@
             parent: 'dealer',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -130,7 +130,7 @@
             parent: 'dealer',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

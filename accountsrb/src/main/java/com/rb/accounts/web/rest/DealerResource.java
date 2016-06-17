@@ -7,6 +7,7 @@ import com.rb.accounts.repository.AddressRepository;
 import com.rb.accounts.repository.DealerRepository;
 import com.rb.accounts.web.rest.util.HeaderUtil;
 import com.rb.accounts.web.rest.util.PaginationUtil;
+import org.springframework.security.core.userdetails.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,12 +16,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,8 +58,12 @@ public class DealerResource {
         if (dealer.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("dealer", "idexists", "A new dealer cannot already have an ID")).body(null);
         }
+                
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Address savedAddress = addressRepository.save(dealer.getAddress());
         dealer.setAddress(savedAddress);
+        dealer.setCreated_by(user.getUsername());
+        dealer.setCreationDate(LocalDateTime.now());
         Dealer result = dealerRepository.save(dealer);
         return ResponseEntity.created(new URI("/api/dealers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("dealer", result.getId().toString()))
@@ -81,6 +88,8 @@ public class DealerResource {
         if (dealer.getId() == null) {
             return createDealer(dealer);
         }
+        dealer.setCreationDate(dealerRepository.findOne(dealer.getId()).getCreationDate());
+        dealer.setModificationDate(LocalDateTime.now());
         Dealer result = dealerRepository.save(dealer);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("dealer", dealer.getId().toString()))

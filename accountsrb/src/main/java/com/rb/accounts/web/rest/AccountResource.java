@@ -62,31 +62,30 @@ public class AccountResource {
                     method = RequestMethod.POST,
                     produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
     @Timed
-    public ResponseEntity<?> registerAccount(@Valid @RequestBody ManagedUserDTO managedUserDTO, HttpServletRequest request) {
+  public ResponseEntity<?> registerAccount(@Valid @RequestBody ManagedUserDTO managedUserDTO,
+      HttpServletRequest request) {
 
-        HttpHeaders textPlainHeaders = new HttpHeaders();
-        textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
+    HttpHeaders textPlainHeaders = new HttpHeaders();
+    String email = null;
+    textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
 
-        return userRepository.findOneByLogin(managedUserDTO.getLogin().toLowerCase())
-            .map(user -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-            .orElseGet(() -> userRepository.findOneByEmail(managedUserDTO.getEmail())
-                .map(user -> new ResponseEntity<>("e-mail address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-                .orElseGet(() -> {
-                    User user = userService.createUserInformation(managedUserDTO.getLogin(), managedUserDTO.getPassword(),
-                    managedUserDTO.getFirstName(), managedUserDTO.getLastName(), managedUserDTO.getEmail().toLowerCase(),
-                    managedUserDTO.getLangKey());
-                    String baseUrl = request.getScheme() + // "http"
-                    "://" +                                // "://"
-                    request.getServerName() +              // "myhost"
-                    ":" +                                  // ":"
-                    request.getServerPort() +              // "80"
-                    request.getContextPath();              // "/myContextPath" or "" if deployed in root context
+    Optional<User> user = userRepository.findOneByLogin(managedUserDTO.getLogin().toLowerCase());
+    if (user == null)
+      return new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST);
 
-                    mailService.sendActivationEmail(user, baseUrl);
-                    return new ResponseEntity<>(HttpStatus.CREATED);
-                })
-        );
+    if (StringUtils.isNotBlank(managedUserDTO.getEmail())) {
+      email = managedUserDTO.getEmail().toLowerCase();
+      user = userRepository.findOneByEmail(managedUserDTO.getEmail());
+      if (user == null)
+        return new ResponseEntity<>("e-mail address already in use", textPlainHeaders,
+            HttpStatus.BAD_REQUEST);
     }
+    
+    userService.createUserInformation(managedUserDTO.getLogin(), managedUserDTO.getPassword(),
+        managedUserDTO.getFirstName(), managedUserDTO.getLastName(),
+        email, managedUserDTO.getLangKey());
+    return new ResponseEntity<>(HttpStatus.CREATED);
+  }
 
     /**
      * GET  /activate : activate the registered user.

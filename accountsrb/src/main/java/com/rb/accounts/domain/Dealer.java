@@ -5,7 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -21,12 +21,11 @@ public class Dealer implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
     @Column(name = "creation_date", nullable = false)
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 
     @Column(name = "modification_date")
-    private LocalDate modificationDate;
+    private LocalDateTime modificationDate;
 
     @NotNull
     @Column(name = "firm_name", nullable = false)
@@ -35,7 +34,6 @@ public class Dealer implements Serializable {
     @Column(name = "owner_name")
     private String ownerName;
 
-    @NotNull
     @Column(name = "tin", nullable = false)
     private String tin;
 
@@ -51,6 +49,10 @@ public class Dealer implements Serializable {
     @OneToOne
     @JoinColumn(unique = true)
     private Address address;
+    
+    @Column(name = "created_by")
+    private String created_by;
+    
 
     public Long getId() {
         return id;
@@ -60,19 +62,19 @@ public class Dealer implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public LocalDate getModificationDate() {
+    public LocalDateTime getModificationDate() {
         return modificationDate;
     }
 
-    public void setModificationDate(LocalDate modificationDate) {
+    public void setModificationDate(LocalDateTime modificationDate) {
         this.modificationDate = modificationDate;
     }
 
@@ -132,6 +134,14 @@ public class Dealer implements Serializable {
         this.address = address;
     }
 
+    public String getCreated_by() {
+      return created_by;
+    }
+
+    public void setCreated_by(String created_by) {
+      this.created_by = created_by;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -164,6 +174,7 @@ public class Dealer implements Serializable {
             ", termsAndConditions='" + termsAndConditions + "'" +
             ", openingBalance='" + openingBalance + "'" +
             ", currentBalance='" + currentBalance + "'" +
+            ", address='" + address + "'" +
             '}';
     }
 }

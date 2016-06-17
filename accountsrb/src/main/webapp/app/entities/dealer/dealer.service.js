@@ -16,7 +16,9 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
+                        console.log(angular.toJson(data));
                         data.creationDate = DateUtils.convertLocalDateFromServer(data.creationDate);
+                        console.log(data.creationDate);
                         data.modificationDate = DateUtils.convertLocalDateFromServer(data.modificationDate);
                     }
                     return data;
@@ -27,6 +29,7 @@
                 transformRequest: function (data) {
                     data.creationDate = DateUtils.convertLocalDateToServer(data.creationDate);
                     data.modificationDate = DateUtils.convertLocalDateToServer(data.modificationDate);
+                    console.log(angular.toJson(data));
                     return angular.toJson(data);
                 }
             },
@@ -36,6 +39,7 @@
                     data.creationDate = DateUtils.convertLocalDateToServer(data.creationDate);
                     data.modificationDate = DateUtils.convertLocalDateToServer(data.modificationDate);
                     return angular.toJson(data);
+                    console.log(angular.toJson(data));
                 }
             }
         });

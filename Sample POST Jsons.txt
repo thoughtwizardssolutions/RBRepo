@@ -13,15 +13,15 @@ POST: /api/dealers
     "pincode": 132001,
     "state": "Haryana"
   },
-  "creationDate": "2016-06-15",
   "currentBalance": 0,
   "firmName": "ABC Enterprises",
-  "modificationDate": "",
-  "openingBalance": 0,
+  "openingBalance": 500000,
   "ownerName": "Ishan",
   "termsAndConditions": "Terms and Conditions",
   "tin": "TIN00015445"
 }
+
+https://github.com/thoughtwizardssolutions/RBRepo.git
 
 2. Create Invoice :
 

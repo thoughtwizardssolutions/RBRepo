@@ -109,13 +109,14 @@ CREATE TABLE IF NOT EXISTS dealer (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   creation_date date NOT NULL,
   current_balance decimal(10,2) DEFAULT NULL,
-  firm_name varchar(255) NOT NULL,
+  firm_name varchar(255) NOT NULL UNIQUE,
   modification_date date DEFAULT NULL,
   opening_balance decimal(10,2) DEFAULT NULL,
   owner_name varchar(255) DEFAULT NULL,
   terms_and_conditions varchar(255) DEFAULT NULL,
-  tin varchar(255) NOT NULL,
+  tin varchar(255),
   address_id bigint(20) DEFAULT NULL,
+  created_by varchar(255) NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT FK_dealer_address_id FOREIGN KEY (address_id) REFERENCES address (id)
 ) ENGINE=InnoDB;
@@ -126,7 +127,7 @@ CREATE TABLE IF NOT EXISTS dealer (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   adjustments decimal(10,2) DEFAULT NULL,
   creation_date date NOT NULL,
-  invoice_number varchar(255) NOT NULL,
+  invoice_number varchar(255) NOT NULL UNIQUE,
   modfication_date date DEFAULT NULL,
   order_number varchar(255) DEFAULT NULL,
   sales_person_name varchar(255) DEFAULT NULL,
@@ -165,12 +166,16 @@ CREATE TABLE IF NOT EXISTS imei (
 
 
 insert into jhi_authority values('ROLE_ADMIN');
+insert into jhi_authority values('ROLE_ORG_ADMIN');
 insert into jhi_authority values('ROLE_USER');
 
 insert into jhi_user values(1,'system','2016-06-13 10:45:27.337',null,null,TRUE,null,'admin@localhost','admin','en','admin','admin','$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC',null,null);
 insert into jhi_user values(2,'system','2016-06-13 10:45:27.337',null,null,TRUE,null,'user@localhost','user','en','user','user','$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K',null,null);
+insert into jhi_user values(3,'system','2016-06-13 10:45:27.337',null,null,TRUE,null,'orgadmin@localhost','orgadmin','en','orgadmin','orgadmin','$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC',null,null);
 
 
 insert into jhi_user_authority values(1, 'ROLE_ADMIN');
+insert into jhi_user_authority values(1, 'ROLE_ORG_ADMIN');
 insert into jhi_user_authority values(1, 'ROLE_USER');
 insert into jhi_user_authority values(2, 'ROLE_USER');
+insert into jhi_user_authority values(3, 'ROLE_ORG_ADMIN');

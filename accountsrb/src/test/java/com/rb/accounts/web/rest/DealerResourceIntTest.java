@@ -23,9 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.math.BigDecimal;;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,11 +45,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class DealerResourceIntTest {
 
 
-    private static final LocalDate DEFAULT_CREATION_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATION_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDateTime DEFAULT_CREATION_DATE = LocalDateTime.now();
+    private static final LocalDateTime UPDATED_CREATION_DATE = LocalDateTime.now(ZoneId.systemDefault());
 
-    private static final LocalDate DEFAULT_MODIFICATION_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_MODIFICATION_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDateTime DEFAULT_MODIFICATION_DATE = LocalDateTime.now();
+    private static final LocalDateTime UPDATED_MODIFICATION_DATE = LocalDateTime.now(ZoneId.systemDefault());
     private static final String DEFAULT_FIRM_NAME = "AAAAA";
     private static final String UPDATED_FIRM_NAME = "BBBBB";
     private static final String DEFAULT_OWNER_NAME = "AAAAA";

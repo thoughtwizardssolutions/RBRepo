@@ -65,7 +65,7 @@ jhipster:
             # security key (this key should be unique for your application, and kept secret)
             key: 85f986e38d40e39741cf721ba8de86677e12e98c
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: accountsrb@localhost
+        from: admin@rbaccounts.com
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:
