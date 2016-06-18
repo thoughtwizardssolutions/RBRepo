@@ -21,20 +21,19 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 public class DevDatabaseConfiguration {
-  
     private final Logger log = LoggerFactory.getLogger(DevDatabaseConfiguration.class);
 
-    @Bean
+    /*@Bean
     @ConditionalOnExpression("#{environment.acceptsProfiles('" + Constants.SPRING_PROFILE_DEVELOPMENT + "')}")
     public DataSource dataSource() {
         System.out.println("Configuring JDBC datasource for development...");
         log.info("Configuring JDBC datasource for development...");
-      //jdbc:hsqldb:mem:testdb        
+        //jdbc:hsqldb:mem:testdb        
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.H2)
             .setName("accounts")
             .addScript("init.sql")
             .build();
         return db;
-    }
+    }*/
 }

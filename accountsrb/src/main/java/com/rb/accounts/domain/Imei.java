@@ -27,7 +27,8 @@ public class Imei implements Serializable {
     @Column(name = "imei_2", nullable = false)
     private String imei2;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="invoice_item_id")
     private InvoiceItem invoiceItem;
     
     public Long getId() {

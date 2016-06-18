@@ -19,15 +19,10 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="invoiceNumber"><span>Invoice Number</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="creationDate"><span>Creation Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="modficationDate"><span>Modfication Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="invoiceNumber"><span>Invoice Number</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="orderNumber"><span>Order Number</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="salesPersonName"><span>Sales Person Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="subtotal"><span>Subtotal</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="taxes"><span>Taxes</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="shippingCharges"><span>Shipping Charges</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="adjustments"><span>Adjustments</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="totalAmount"><span>Total Amount</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -35,15 +30,10 @@
             <tbody>
                 <tr ng-repeat="invoice in vm.invoices track by invoice.id">
                     <td><a ui-sref="invoice-detail({id:invoice.id})">{{invoice.id}}</a></td>
-                        <td>{{invoice.creationDate | date:'mediumDate'}}</td>
-                        <td>{{invoice.modficationDate | date:'mediumDate'}}</td>
-                    <td>{{invoice.invoiceNumber}}</td>
+                    <td><a ui-sref="invoice-detail({id:invoice.id})">{{invoice.invoiceNumber}}</a></td>
+                    <td>{{invoice.creationDate | date:'mediumDate'}}</td>
+                    <td>{{invoice.modficationDate | date:'mediumDate'}}</td>
                     <td>{{invoice.orderNumber}}</td>
-                    <td>{{invoice.salesPersonName}}</td>
-                    <td>{{invoice.subtotal}}</td>
-                    <td>{{invoice.taxes}}</td>
-                    <td>{{invoice.shippingCharges}}</td>
-                    <td>{{invoice.adjustments}}</td>
                     <td>{{invoice.totalAmount}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

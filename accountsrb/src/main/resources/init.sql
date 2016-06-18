@@ -133,9 +133,11 @@ CREATE TABLE IF NOT EXISTS dealer (
   sales_person_name varchar(255) DEFAULT NULL,
   shipping_charges decimal(10,2) DEFAULT NULL,
   subtotal decimal(10,2) NOT NULL,
+  dealer_id decimal(10,2) NOT NULL,
   taxes decimal(10,2) DEFAULT NULL,
   total_amount decimal(10,2) NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  CONSTRAINT FK_invoice_dealer FOREIGN KEY (dealer_id) REFERENCES dealer (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS invoice_item (
@@ -146,6 +148,7 @@ CREATE TABLE IF NOT EXISTS invoice_item (
   quantity int(11) NOT NULL,
   tax_type varchar(12) DEFAULT NULL,
   tax_rate decimal(3,2) DEFAULT NULL,
+  item_description varchar(255) DEFAULT NULL,
   product_id bigint(20) DEFAULT NULL,
   invoice_id bigint(20) DEFAULT NULL,
   PRIMARY KEY (id),

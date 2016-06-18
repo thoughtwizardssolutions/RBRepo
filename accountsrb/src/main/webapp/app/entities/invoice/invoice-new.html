@@ -1,0 +1,188 @@
+
+<div>
+    <h2><span>Create New Invoice</span></h2>
+    <hr>
+    
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-success" ng-show="vm.success">
+                <strong>Invoice saved!</strong>.
+            </div>
+            <div class="alert alert-danger" ng-show="vm.error">
+                <strong>Create Invoice failed!</strong> Please try again later.
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+            <form ng-show="!vm.success" name="form" role="form" novalidate ng-submit="vm.saveInvoice()" show-validation>
+
+				<!-- Choose Contact -->
+				<div class="form-group">
+			        <div class="btn-group" uib-dropdown keyboard-nav>
+				        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+				            {{ vm.selectedContact.firmName || 'Select Contact'}} <span class="caret"></span>
+				        </button>
+				        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+							<li role="menuitem" ng-repeat= "dealer in vm.dealers" ng-click="vm.selectContact(dealer)"><a>{{dealer.firmName}}</a></li>
+				        </ul>
+				    </div>
+		            <input type="text" class="form-control" name="field_contact" id="field_contact" value ="vm.selectedContactInline()" required readonly="true"/>
+		            <div ng-show="editForm.invoiceNumber.$invalid">
+		                <p class="help-block" ng-show="editForm.invoiceNumber.$error.required">
+		                    This field is required.
+		                </p>
+		            </div>
+		        </div>	
+		       	<!-- Choose Contact -->		
+				
+		<div class="form-group">
+            <label class="control-label" for="field_invoiceNumber">Invoice Number</label>
+            <input type="text" class="form-control" name="invoiceNumber" id="field_invoiceNumber"
+                    ng-model="vm.invoice.invoiceNumber"
+                    required />
+            <div ng-show="editForm.invoiceNumber.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.invoiceNumber.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_orderNumber">Order Number</label>
+            <input type="text" class="form-control" name="orderNumber" id="field_orderNumber"
+                    ng-model="vm.invoice.orderNumber"
+                     />
+        </div>
+        
+        <div class="form-group">
+	                <table border="0" style="border-collapse: collapse">
+					  <tr>
+					    <th>
+					    	<label class="control-label" for="itemDescription">Item Details</label>
+						</th>
+					    <th>
+					    	<label class="control-label" for="imei1">IMEI 1</label>
+						</th>
+						<th>
+					    	<label class="control-label" for="imei2">IMEI 2</label>
+						</th>
+						<th>
+					    	<label class="control-label" for="quantity">Quantity</label>
+						</th>
+						<th>
+					    	<label class="control-label" for="rate">Rate</label>
+						</th>
+						<th>
+					    	<label class="control-label" for="tax">Tax</label>
+						</th>
+						<th>
+					    	<label class="control-label" for="amount">Amount</label>
+						</th>
+					  </tr>
+					  <tr>
+					    <td>
+					    	<input type="text" class="form-control" id="itemDescription" name="itemDescription"
+                           ng-model="vm.invoice.invoiceItem.description" ng-minlength=4 ng-maxlength=50 >
+					    </td>
+					    <td>
+					    	<input type="text" class="form-control" id="imei1" name="imei1"
+                           ng-model="vm.invoice.invoiceItem.imeis.imei1" ng-minlength=4 ng-maxlength=50 >
+					    </td>
+					    <td>
+					    	<input type="text" class="form-control" id="imei2" name="imei2"
+                           ng-model="vm.invoice.invoiceItem.imeis.imei2" ng-minlength=4 ng-maxlength=50>
+					    </td>
+					    <td>
+					    	<input type="text" class="form-control" id="rate" name="rate"
+                           ng-model="vm.invoice.invoiceItem.rate" ng-minlength=4 ng-maxlength=50 required>
+					    </td>
+					    <td>
+					    	<input type="password" class="form-control" id="quantity" name="quantity"
+                           ng-model="vm.invoice.invoiceItem.quantity" ng-minlength=4 ng-maxlength=50 required>
+					    </td>
+					    <td>
+					    	<input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                           ng-model="vm.invoice.invoiceItem.taxRate" ng-minlength=4 ng-maxlength=50 required>
+					    </td>
+					    <td>
+					    	<input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                           ng-model="vm.invoice.invoiceItem.taxType" ng-minlength=4 ng-maxlength=50 required>
+					    </td>
+					    <td>
+					    	<input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                           ng-model="vm.confirmPassword" ng-minlength=4 ng-maxlength=50 required>
+					    </td>
+					  </tr>
+					</table>
+                </div>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Add Another Item</button>
+        
+        <div class="form-group">
+            <label class="control-label" for="field_salesPersonName">Sales Person Name</label>
+            <input type="text" class="form-control" name="salesPersonName" id="field_salesPersonName"
+                    ng-model="vm.invoice.salesPersonName"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_subtotal">Subtotal</label>
+            <input type="number" class="form-control" name="subtotal" id="field_subtotal"
+                    ng-model="vm.invoice.subtotal"
+                    required />
+            <div ng-show="editForm.subtotal.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.subtotal.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.subtotal.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_taxes">Taxes</label>
+            <input type="number" class="form-control" name="taxes" id="field_taxes"
+                    ng-model="vm.invoice.taxes"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_shippingCharges">Shipping Charges</label>
+            <input type="number" class="form-control" name="shippingCharges" id="field_shippingCharges"
+                    ng-model="vm.invoice.shippingCharges"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_adjustments">Adjustments</label>
+            <input type="number" class="form-control" name="adjustments" id="field_adjustments"
+                    ng-model="vm.invoice.adjustments"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_totalAmount">Total Amount</label>
+            <input type="number" class="form-control" name="totalAmount" id="field_totalAmount"
+                    ng-model="vm.invoice.totalAmount"
+                    required />
+            <div ng-show="editForm.totalAmount.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.totalAmount.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.totalAmount.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+    			<button type="submit" onclick="window.history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span></button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Preview</button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+                
+            </form>
+            <p></p>
+        </div>
+    </div>
+</div>
+    
+    
+
+
+</div>

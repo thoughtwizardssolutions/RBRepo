@@ -6,6 +6,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -52,8 +53,7 @@ public class Dealer implements Serializable {
     
     @Column(name = "created_by")
     private String created_by;
-    
-
+      
     public Long getId() {
         return id;
     }

@@ -57,8 +57,11 @@ public class Invoice implements Serializable {
     @Column(name = "total_amount", precision=10, scale=2, nullable = false)
     private BigDecimal totalAmount;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "invoice")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy="invoice")
     private List<InvoiceItem> invoiceItems = new ArrayList();
+    
+    @Column(name="dealer_id")
+    private Long dealerId;
 
     public Long getId() {
         return id;
@@ -154,6 +157,14 @@ public class Invoice implements Serializable {
 
     public void setInvoiceItems(List<InvoiceItem> saveInvoiceItems) {
         this.invoiceItems = saveInvoiceItems;
+    }
+
+    public Long getDealer() {
+      return dealerId;
+    }
+
+    public void setDealer(Long dealerId) {
+      this.dealerId = dealerId;
     }
 
     @Override

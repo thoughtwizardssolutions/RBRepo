@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/invoice?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN'],
                 pageTitle: 'Invoices'
             },
             views: {
@@ -50,7 +50,7 @@
             parent: 'entity',
             url: '/invoice/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN'],
                 pageTitle: 'Invoice'
             },
             views: {
@@ -70,44 +70,23 @@
             parent: 'invoice',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN'],
+                pageTitle: 'Invoice'
             },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
-                    templateUrl: 'app/entities/invoice/invoice-dialog.html',
-                    controller: 'InvoiceDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: function () {
-                            return {
-                                creationDate: null,
-                                modficationDate: null,
-                                invoiceNumber: null,
-                                orderNumber: null,
-                                salesPersonName: null,
-                                subtotal: null,
-                                taxes: null,
-                                shippingCharges: null,
-                                adjustments: null,
-                                totalAmount: null,
-                                id: null
-                            };
-                        }
-                    }
-                }).result.then(function() {
-                    $state.go('invoice', null, { reload: true });
-                }, function() {
-                    $state.go('invoice');
-                });
-            }]
+            
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/invoice/invoice-new.html',
+                    controller: 'InvoiceNewController',
+                    controllerAs: 'vm'
+                }
+            }
         })
         .state('invoice.edit', {
             parent: 'invoice',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -132,7 +111,7 @@
             parent: 'invoice',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

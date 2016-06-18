@@ -31,6 +31,9 @@ public class InvoiceItem implements Serializable {
 
     @Column(name = "discount", precision=10, scale=2)
     private BigDecimal discount;
+    
+    @Column(name = "item_description", precision=10, scale=2)
+    private String itemDesciption;
 
     @NotNull
     @Column(name = "amount", precision=10, scale=2, nullable = false)
@@ -49,7 +52,8 @@ public class InvoiceItem implements Serializable {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "invoiceItem")
     private Set<Imei> imeis = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="invoice_id")
     private Invoice invoice;
 
     public Long getId() {

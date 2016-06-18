@@ -54,9 +54,9 @@ public class DealerResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Dealer> createDealer(@Valid @RequestBody Dealer dealer) throws URISyntaxException {
-        log.debug("REST request to save Dealer : {}", dealer);
+        log.debug("REST request to save Contact : {}", dealer);
         if (dealer.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("dealer", "idexists", "A new dealer cannot already have an ID")).body(null);
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("Contact", "idexists", "A new Contact cannot already have an ID")).body(null);
         }
                 
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -66,7 +66,7 @@ public class DealerResource {
         dealer.setCreationDate(LocalDateTime.now());
         Dealer result = dealerRepository.save(dealer);
         return ResponseEntity.created(new URI("/api/dealers/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("dealer", result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert("Contact", result.getFirmName()))
             .body(result);
     }
 
@@ -92,7 +92,7 @@ public class DealerResource {
         dealer.setModificationDate(LocalDateTime.now());
         Dealer result = dealerRepository.save(dealer);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("dealer", dealer.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("Contact", dealer.getId().toString()))
             .body(result);
     }
 
@@ -126,7 +126,7 @@ public class DealerResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Dealer> getDealer(@PathVariable Long id) {
-        log.debug("REST request to get Dealer : {}", id);
+        log.debug("REST request to get Contact : {}", id);
         Dealer dealer = dealerRepository.findOne(id);
         return Optional.ofNullable(dealer)
             .map(result -> new ResponseEntity<>(
@@ -146,9 +146,9 @@ public class DealerResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteDealer(@PathVariable Long id) {
-        log.debug("REST request to delete Dealer : {}", id);
+        log.debug("REST request to delete Contact : {}", id);
         dealerRepository.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("dealer", id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("Contact", id.toString())).build();
     }
 
 }
