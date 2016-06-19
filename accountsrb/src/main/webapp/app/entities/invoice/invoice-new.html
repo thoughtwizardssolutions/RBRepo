@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="col-md-10 col-md-offset-1">
-            <form ng-show="!vm.success" name="editForm" role="form" novalidate ng-submit="vm.saveInvoice()" show-validation>
+            <form ng-show="!vm.success" name="editForm" role="form" novalidate show-validation>
 
 				<!-- Choose Contact -->
 				<div class="form-group">
@@ -116,6 +116,17 @@
 								<p class="help-block" ng-show="editForm.quantity.$error.number">This field should be a number.</p>
 							</div>
 						</div>
+						<!-- Choose Tax -->
+						<div class="col-md-2">
+							<div class="form-group" uib-dropdown keyboard-nav>
+								<button id="tax-choice" type="button" class="btn btn-default btn-md" uib-dropdown-toggle> {{invoiceItem.tax.name + invoiceItem.tax.rate || 'Select tax'}} <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" uib-dropdown-menu role="menu"	aria-labelledby="tax-choice">
+									<li role="menuitem" ng-repeat="tax in vm.taxes" ng-click="vm.selectInvoiceItemTax(invoiceItem,tax)"><a>{{tax.name}}</a></li>
+								</ul>
+							</div>
+						</div>
+						<!--  Choose Tax End -->
 						<div class="col-md-2">
 							<label class="control-label" for="field_amount">Amount</label> 
 							<input type="number" class="form-control" name="amount"	id="field_amount" ng-model="invoiceItem.amount" required />
@@ -124,19 +135,29 @@
 								<p class="help-block" ng-show="editForm.amount.$error.number">This	field should be a number.</p>
 							</div>
 						</div>
-						<!-- Choose Product -->
-						<div class="col-md-2">
-							<div class="container" uib-dropdown keyboard-nav>
-								<button id="tax-choice" type="button" class="btn btn-warning" uib-dropdown-toggle> Select Tax <span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" uib-dropdown-menu role="menu"	aria-labelledby="tax-choice">
-									<li role="menuitem" ng-repeat="tax in vm.taxes" ng-click="vm.selectInvoiceItemTax(invoiceItem,tax)"><a>{{tax.name}}</a></li>
-								</ul>
-							</div>
-						</div>
-						<!--  Choose Product End -->
+						
+					
 					</div>
 					<!-- Row end -->
+					<div class="row">
+						<div class="col-md-2">
+							<!-- Add Imeis -->
+							<button class="btn btn-primary" ng-click="vm.addImeiToInvoiceItem(invoiceItem)">Add Imeis</button>
+							<!-- Add Imeis End-->
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" data-ng-repeat="imei in invoiceItem.imeis track by imei.index">
+								<label class="control-label" for="field_imei2">IMEI 1</label>
+								<input type="text" class="form-control" name="imei1" id="field_imei1" ng-model="imei.imei1" ngMinlength="15" ngMaxlength="15" ng-change="vm.addImeis(invoiceItem.imeis, imei)"/>
+								<label class="control-label" for="field_imei2">IMEI 2</label>
+								<input type="text" class="form-control" name="imei2" id="field_imei2" ng-model="imei.imei2" ngMinlength="15" ngMaxlength="15" ng-change="vm.addImeis(invoiceItem.imeis, imei)"/>
+							</div>
+						</div>
+						
+						
+					</div>
+					
+					
 					<!-- Item details End -->
 					<!-- Remove Item button -->
 					<hr><button class="btn btn-primary" ng-click="vm.removeInvoiceItem(invoiceItem)">Remove</button>
@@ -203,7 +224,7 @@
         </div>
     			<button type="submit" onclick="window.history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span></button>
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Preview</button>
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" ng-click="vm.saveInvoice()">Save</button>
                 
             </form>
             <p></p>

@@ -30,6 +30,8 @@
 		vm.loadTaxes = loadTaxes;
 		vm.selectContact = selectContact;
 		vm.addInvoiceitem = addInvoiceitem;
+		vm.addImeiToInvoiceItem = addImeisToInvoiceItem;
+		vm.addImeis = addImeis;
 		vm.removeInvoiceItem = removeInvoiceItem;
 		vm.selectInvoiceItemProduct = selectInvoiceItemProduct
 		vm.selectInvoiceItemTax = selectInvoiceItemTax
@@ -40,7 +42,7 @@
 
 		function saveInvoice() {
 			console.log('inside save method...,....');
-			Invoice.save(vm.invoice);
+			Invoice.createPdf(vm.invoice);
 		}
 
 		function addInvoiceitem() {
@@ -215,10 +217,32 @@
 			}
 		}
 		
-		function addImei(invoiceItem, imei) {
-			invoiceItem.imeis.push(imei);
-			
-		}
+	    function addImeisToInvoiceItem(invoiceItem) {
+	    	console.log('adding imei section to invoiceItmem');
+	    	// this is done only first time when creating two input text for imeis
+	    	if(!invoiceItem.imeis) {
+	    		invoiceItem.imeis = [];
+	    		var imei = {};
+	    		invoiceItem.imeis.push(imei);
+	    	}
+	      }
+	      
+	      function addImeis(imeis, imei) {
+	    	  console.log('imei changed');
+	    	  console.log(imei);
+	    	  if(imei && imei.imei1 && imei.imei1.length === 15) {
+	    		  console.log('change focus to imei2....');
+	    		  
+	    	  }
+	    	  if(imei && imei.imei1 && imei.imei2 && imei.imei1.length === 15 && imei.imei2.length === 15) {
+	    		 imei.index = imeis.length + 1;
+	    		 console.log('adding imei');
+	    		 console.log(imei);
+	    		 imeis.push(imei);
+	    		 console.log('imei added .. New imeis list');
+	    		 console.log(imeis);
+	    	 }
+	      }
 		
 	}
 })();

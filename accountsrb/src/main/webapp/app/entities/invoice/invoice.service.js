@@ -7,7 +7,7 @@
     Invoice.$inject = ['$resource', 'DateUtils'];
 
     function Invoice ($resource, DateUtils) {
-        var resourceUrl =  'api/invoices/:id';
+        var resourceUrl =  'api/invoices/pdf';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -35,6 +35,14 @@
                 transformRequest: function (data) {
                     data.creationDate = DateUtils.convertLocalDateToServer(data.creationDate);
                     data.modficationDate = DateUtils.convertLocalDateToServer(data.modficationDate);
+                    return angular.toJson(data);
+                }
+            },
+            'createPdf': {
+                method: 'POST',
+                transformRequest: function (data) {
+                    // data.creationDate = DateUtils.convertLocalDateToServer(data.creationDate);
+                     // data.modficationDate = DateUtils.convertLocalDateToServer(data.modficationDate);
                     return angular.toJson(data);
                 }
             }
