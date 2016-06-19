@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class DevDatabaseConfiguration {
     private final Logger log = LoggerFactory.getLogger(DevDatabaseConfiguration.class);
 
-    /*@Bean
+    @Bean
     @ConditionalOnExpression("#{environment.acceptsProfiles('" + Constants.SPRING_PROFILE_DEVELOPMENT + "')}")
     public DataSource dataSource() {
         System.out.println("Configuring JDBC datasource for development...");
@@ -35,5 +35,5 @@ public class DevDatabaseConfiguration {
             .addScript("init.sql")
             .build();
         return db;
-    }*/
+    }
 }

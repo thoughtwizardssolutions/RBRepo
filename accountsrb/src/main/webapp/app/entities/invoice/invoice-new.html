@@ -81,56 +81,39 @@
 								Name</label> <input type="text" class="form-control" name="product-name"
 								id="product-name" ng-model="invoiceItem.productName" required />
 							<div ng-show="editForm.product-name.$invalid">
-								<p class="help-block"
-									ng-show="editForm.product-name.$error.required">This field
-									is required.</p>
+								<p class="help-block" ng-show="editForm.product-name.$error.required">This field is required.</p>
 							</div>
 						</div>
 						<div class="col-md-2">
-							<label class="control-label" for="field_color">Color</label> <input
-								type="text" class="form-control" name="field_color"
-								id="field_color" ng-model="invoiceItem.color" />
+							<label class="control-label" for="field_color">Color</label>
+							<input type="text" class="form-control" name="field_color" id="field_color" ng-model="invoiceItem.color" />
 						</div>
 						<div class="col-md-2">
 							<label class="control-label" for="product-description">Description</label>
-							<input type="text" class="form-control"
-								name="product-description" id="product-description"
-								ng-model="invoiceItem.description" />
+							<input type="text" class="form-control"	name="product-description" id="product-description"	ng-model="invoiceItem.description" />
 						</div>
 						<div class="col-md-2">
 							<label class="control-label" for="field_quantity">Quantity</label>
-							<input type="number" class="form-control" name="quantity"
-								id="field_quantity" ng-model="invoiceItem.quantity" required />
+							<input type="number" class="form-control" name="quantity" id="field_quantity" ng-model="invoiceItem.quantity" required />
 							<div ng-show="editForm.quantity.$invalid">
-								<p class="help-block"
-									ng-show="editForm.quantity.$error.required">This field is
-									required.</p>
-								<p class="help-block" ng-show="editForm.quantity.$error.number">This
-									field should be a number.</p>
+								<p class="help-block" ng-show="editForm.quantity.$error.required">This field is	required.</p>
+								<p class="help-block" ng-show="editForm.quantity.$error.number">This field should be a number.</p>
 							</div>
 						</div>
 						<div class="col-md-2">
-							<label class="control-label" for="field_quantity">Rate</label> <input
-								type="number" class="form-control" name="quantity"
-								id="field_quantity" ng-model="invoiceItem.mrp" required />
+							<label class="control-label" for="field_quantity">Rate</label>
+							<input type="number" class="form-control" name="quantity" id="field_quantity" ng-model="invoiceItem.mrp" required />
 							<div ng-show="editForm.quantity.$invalid">
-								<p class="help-block"
-									ng-show="editForm.quantity.$error.required">This field is
-									required.</p>
-								<p class="help-block" ng-show="editForm.quantity.$error.number">This
-									field should be a number.</p>
+								<p class="help-block" ng-show="editForm.quantity.$error.required">This field is	required.</p>
+								<p class="help-block" ng-show="editForm.quantity.$error.number">This field should be a number.</p>
 							</div>
 						</div>
 						<div class="col-md-2">
 							<label class="control-label" for="field_discount">Discount</label>
-							<input type="number" class="form-control" name="discount"
-								id="field_discount" ng-model="invoiceItem.discount" />
+							<input type="number" class="form-control" name="discount" id="field_discount" ng-model="invoiceItem.discount" />
 							<div ng-show="editForm.quantity.$invalid">
-								<p class="help-block"
-									ng-show="editForm.quantity.$error.required">This field is
-									required.</p>
-								<p class="help-block" ng-show="editForm.quantity.$error.number">This
-									field should be a number.</p>
+							<p class="help-block" ng-show="editForm.quantity.$error.required">This field is	required.</p>
+								<p class="help-block" ng-show="editForm.quantity.$error.number">This field should be a number.</p>
 							</div>
 						</div>
 						<div class="col-md-2">
