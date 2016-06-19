@@ -73,7 +73,6 @@
                 authorities: ['ROLE_USER', 'ROLE_ORG_ADMIN'],
                 pageTitle: 'Invoice'
             },
-            
             views: {
                 'content@': {
                     templateUrl: 'app/entities/invoice/invoice-new.html',
