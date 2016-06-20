@@ -135,6 +135,7 @@ public class DealerResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    
     /**
      * DELETE  /dealers/:id : delete the "id" dealer.
      *

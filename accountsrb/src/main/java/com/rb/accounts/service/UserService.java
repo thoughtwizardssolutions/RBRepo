@@ -168,10 +168,8 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
       log.info("Logining with user : "+ login);
-      System.out.println("Logining with user : "+ login);
       Optional<User> result = userRepository.findOneByLogin(login);
       log.info("user found with credentials :"+ result);
-      System.out.println("user found with credentials :"+ result);
       
       
         return userRepository.findOneByLogin(login).map(u -> {

@@ -17,6 +17,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import com.rb.accounts.domain.Invoice;
+import com.rb.accounts.domain.InvoiceItem;
 import com.rb.accounts.repository.InvoiceItemRepository;
 import com.rb.accounts.repository.InvoiceRepository;
 import com.rb.accounts.repository.ProductRepository;
@@ -24,8 +25,12 @@ import com.rb.accounts.service.pdf.EnglishNumberToWords;
 import com.rb.accounts.service.pdf.TableData;
 import com.rb.accounts.web.rest.util.HeaderUtil;
 import com.rb.accounts.web.rest.util.PaginationUtil;
+
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -83,11 +88,11 @@ public class InvoiceResource {
     @Timed
     public ResponseEntity<Invoice> createInvoice(@Valid @RequestBody Invoice invoice) throws URISyntaxException {
         log.debug("REST request to save Invoice : {}", invoice);
-        if (invoice.getId() != null) {
+       if (invoice.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("Invoice", "idexists", "A new Invoice cannot already have an ID")).body(null);
         }
-       /* List<InvoiceItem> saveInvoiceItems = invoiceItemRepository.save(invoice.getInvoiceItems());
-        invoice.setInvoiceItems(saveInvoiceItems);*/
+        List<InvoiceItem> saveInvoiceItems = invoiceItemRepository.save(invoice.getInvoiceItems());
+        invoice.setInvoiceItems(saveInvoiceItems);
         Invoice result = invoiceRepository.save(invoice);
         return ResponseEntity.created(new URI("/api/invoices/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("Invoice", result.getId().toString()))
@@ -98,16 +103,17 @@ public class InvoiceResource {
      * POST  /invoices/pdf : Create a new invoice PDF.
      *
      * @param invoice the invoice to create PDF for
+     * @return 
      * @return attachment
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/invoices/pdf",
+    @RequestMapping(value = "/pdf",
         method = RequestMethod.POST,
         produces = "application/pdf")
     @Timed
-    public void createInvoicePdf(@Valid @RequestBody Invoice invoice, HttpServletRequest request, HttpServletResponse response) throws URISyntaxException,FileNotFoundException, IOException {
+    public ResponseEntity<InputStreamResource> createInvoicePdf(@Valid @RequestBody Invoice invoice, HttpServletRequest request, HttpServletResponse response) throws URISyntaxException,FileNotFoundException, IOException {
         log.debug("REST request to save Invoice : {}", invoice);
-        Font blackHeadingFont = FontFactory.getFont(FontFactory.COURIER, 24, Font.BOLD);
+       /*Font blackHeadingFont = FontFactory.getFont(FontFactory.COURIER, 24, Font.BOLD);
         Font blackHeadingLargeFont = FontFactory.getFont(FontFactory.COURIER, 18, Font.BOLD);
         Font blackBoldFont = FontFactory.getFont(FontFactory.COURIER, 12, Font.BOLD);
         Font blackFont = FontFactory.getFont(FontFactory.COURIER, 10);
@@ -294,21 +300,32 @@ public class InvoiceResource {
 
         response.setContentType("application/pdf");
         PrintWriter out = response.getWriter();
-        String filename = "Invoice.pdf";
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+        String filename = "12354564.pdf";
+        response.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");
 
         // use inline if you want to view the content in browser, helpful for
         // pdf file
         // response.setHeader("Content-Disposition","inline; filename=\"" +
         // filename + "\"");
         FileInputStream fileInputStream = new FileInputStream(filename);
-
         int i;
         while ((i = fileInputStream.read()) != -1) {
             out.write(i);
         }
-        fileInputStream.close();
-        out.close();
+        out.close();*/
+        ClassPathResource pdfFile = new ClassPathResource("Invoice.pdf");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentLength(pdfFile.contentLength())
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(new InputStreamResource(pdfFile.getInputStream()));
+        
     }
 
     /**

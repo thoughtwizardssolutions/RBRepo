@@ -189,18 +189,13 @@ public class Invoice implements Serializable {
 
     @Override
     public String toString() {
-        return "Invoice{" +
-            "id=" + id +
-            ", creationDate='" + creationDate + "'" +
-            ", modficationDate='" + modficationDate + "'" +
-            ", invoiceNumber='" + invoiceNumber + "'" +
-            ", orderNumber='" + orderNumber + "'" +
-            ", salesPersonName='" + salesPersonName + "'" +
-            ", subtotal='" + subtotal + "'" +
-            ", taxes='" + taxes + "'" +
-            ", shippingCharges='" + shippingCharges + "'" +
-            ", adjustments='" + adjustments + "'" +
-            ", totalAmount='" + totalAmount + "'" +
-            '}';
+      return "Invoice [id=" + id + ", creationDate=" + creationDate + ", modficationDate="
+          + modficationDate + ", invoiceNumber=" + invoiceNumber + ", orderNumber=" + orderNumber
+          + ", salesPersonName=" + salesPersonName + ", subtotal=" + subtotal + ", taxes=" + taxes
+          + ", shippingCharges=" + shippingCharges + ", adjustments=" + adjustments
+          + ", totalAmount=" + totalAmount + ", invoiceItems=" + invoiceItems + ", dealerId="
+          + dealerId + "]";
     }
+
+   
 }

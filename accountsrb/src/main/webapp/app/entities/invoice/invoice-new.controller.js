@@ -5,10 +5,10 @@
 			InvoiceNewController);
 
 	InvoiceNewController.$inject = [ '$scope', '$state', '$uibModal', '$timeout', 'Invoice', 'Dealer',
-			'AlertService', 'Product', 'Tax' ];
+			'AlertService', 'Product', 'Tax', 'Pdf', '$http'];
 
 	function InvoiceNewController($scope, $state, $uibModal, $timeout, Invoice, Dealer,
-			AlertService, Product, Tax) {
+			AlertService, Product, Tax, Pdf, $http) {
 		var vm = this;
 
 		vm.doNotMatch = null;
@@ -30,6 +30,7 @@
 		vm.loadTaxes = loadTaxes;
 		vm.selectContact = selectContact;
 		vm.addInvoiceitem = addInvoiceitem;
+		vm.showInvoice = showInvoice;
 		vm.addImeiToInvoiceItem = addImeisToInvoiceItem;
 		vm.addImeis = addImeis;
 		vm.removeInvoiceItem = removeInvoiceItem;
@@ -42,9 +43,17 @@
 
 		function saveInvoice() {
 			console.log('inside save method...,....');
-			Invoice.createPdf(vm.invoice);
+			Invoice.save(vm.invoice);
 		}
-
+		function showInvoice() {
+			console.log('inside save method...,....');
+			$http.post("api/pdf/", vm.invoice).success(function(data, status) {
+                console.log(data);
+                var file = new Blob([data], {type: 'application/pdf'});
+                var fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            });
+		}
 		function addInvoiceitem() {
 			var invoiceItem = {};
 			invoiceItem.index = vm.invoice.invoiceItems.length + 1;
@@ -64,7 +73,7 @@
 				vm.dealers = data;
 				var dealer = {};
 				dealer.firmName = 'Add new contact+';
-				dealer.id = vm.dealers.length + 1;
+				dealer.id =-1;
 				vm.dealers.push(dealer);
 			}
 		}
@@ -77,7 +86,7 @@
 				vm.products = data;
 				var product = {};
 				product.productName = 'Add new Product+';
-				product.id = vm.products.length + 1;
+				product.id = -1;
 				vm.products.push(product);
 			}
 		}
@@ -90,7 +99,7 @@
 				vm.taxes = data;
 				var tax = {};
 				tax.name = 'Add new Tax+';
-				tax.id = vm.taxes.length + 1;
+				tax.id = -1;
 				vm.taxes.push(tax);
 			}
 		}

@@ -70,13 +70,13 @@ public class AccountResource {
     textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
 
     Optional<User> user = userRepository.findOneByLogin(managedUserDTO.getLogin().toLowerCase());
-    if (user == null)
+    if (user.isPresent())
       return new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST);
 
     if (StringUtils.isNotBlank(managedUserDTO.getEmail())) {
       email = managedUserDTO.getEmail().toLowerCase();
       user = userRepository.findOneByEmail(managedUserDTO.getEmail());
-      if (user == null)
+      if (user.isPresent())
         return new ResponseEntity<>("e-mail address already in use", textPlainHeaders,
             HttpStatus.BAD_REQUEST);
     }

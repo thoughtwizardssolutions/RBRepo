@@ -39,6 +39,7 @@ public class InvoiceItem implements Serializable {
     @Column(name = "amount", precision=10, scale=2, nullable = false)
     private BigDecimal amount;
 
+    
     @Column(name = "tax_type")
     private String taxType;
 
@@ -158,14 +159,11 @@ public class InvoiceItem implements Serializable {
 
     @Override
     public String toString() {
-        return "InvoiceItem{" +
-            "id=" + id +
-            ", quantity='" + quantity + "'" +
-            ", mrp='" + mrp + "'" +
-            ", discount='" + discount + "'" +
-            ", amount='" + amount + "'" +
-            ", taxType='" + taxType + "'" +
-            ", taxRate='" + taxRate + "'" +
-            '}';
+      return "InvoiceItem [id=" + id + ", quantity=" + quantity + ", mrp=" + mrp + ", discount="
+          + discount + ", itemDesciption=" + itemDesciption + ", amount=" + amount + ", taxType="
+          + taxType + ", taxRate=" + taxRate + ", product=" + product + ", imeis=" + imeis
+          + ", invoice=" + invoice + "]";
     }
+
+
 }
